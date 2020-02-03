@@ -1,0 +1,65 @@
+<agm-map
+  (mapClick)="onMapClick($event)"
+  [latitude]="coords.latitude"
+  [longitude]="coords.longitude"
+  [scrollwheel]="true"
+  [fullscreenControl]="true"
+  [zoom]="5"
+>
+  <!-- canada marker -->
+  <agm-marker
+    [latitude]="coords.latitude"
+    [longitude]="coords.longitude"
+  ></agm-marker>
+
+  <agm-marker
+    *ngFor="let item of markers; let i = index"
+    [latitude]="item.coords.lat"
+    [longitude]="item.coords.lng"
+  >
+    <agm-polyline [strokeColor]="'blue'" [geodesic]="true">
+      <agm-icon-sequence [path]="'FORWARD_OPEN_ARROW'"></agm-icon-sequence>
+      <agm-polyline-point
+        [latitude]="coords.latitude"
+        [longitude]="coords.longitude"
+      >
+      </agm-polyline-point>
+      <agm-polyline-point [latitude]="41.74" [longitude]="-87.76">
+      </agm-polyline-point>
+    </agm-polyline>
+
+    <agm-polyline [strokeColor]="'blue'" [geodesic]="true">
+      <agm-icon-sequence [path]="'FORWARD_OPEN_ARROW'"></agm-icon-sequence>
+      <agm-polyline-point
+        [latitude]="coords.latitude"
+        [longitude]="coords.longitude"
+      >
+      </agm-polyline-point>
+      <agm-polyline-point [latitude]="39.16" [longitude]="-104.57">
+      </agm-polyline-point>
+    </agm-polyline>
+
+    <agm-snazzy-info-window [maxWidth]="20" [closeWhenOthersOpen]="true">
+      <ng-template>
+        Custom marker info
+      </ng-template>
+    </agm-snazzy-info-window>
+  </agm-marker>
+  <agm-marker-cluster
+    imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m"
+  >
+    <agm-overlay
+      *ngFor="let item of markers; let i = index"
+      [latitude]="item.coords.lat"
+      [longitude]="item.coords.lng"
+    >
+      <agm-marker
+        [latitude]="item.coords.lat"
+        [longitude]="item.coords.lng"
+      ></agm-marker>
+      <agm-info-window>
+        <strong>InfoWindow content</strong>
+      </agm-info-window>
+    </agm-overlay>
+  </agm-marker-cluster>
+</agm-map>
